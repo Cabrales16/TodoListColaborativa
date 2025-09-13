@@ -1,0 +1,24 @@
+{
+    "admins" : [
+        {
+            "id" : 1,
+            "usuario" : "andres",
+            "correo" : "andres@gmail.com",
+            "contrasena" : "1234"
+        },
+
+        {
+            "id" : 2,
+            "usuario" : "gerson",
+            "correo" : "gerson@gmail.com",
+            "contrasena" : "1212"
+        },
+
+        {
+            "id" : 3,
+            "usuario" : "sofia",
+            "correo" : "sofia@gmail.com",
+            "contrasena" : "4321"
+        }
+    ]
+}
