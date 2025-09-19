@@ -1,0 +1,59 @@
+{
+  "admins": [
+    {
+      "id": "1",
+      "usuario": "andres",
+      "correo": "andres@gmail.com",
+      "contrasena": "1234"
+    },
+    {
+      "id": "2",
+      "usuario": "gerson",
+      "correo": "gerson@gmail.com",
+      "contrasena": "1212"
+    },
+    {
+      "id": "3",
+      "usuario": "sofia",
+      "correo": "sofia@gmail.com",
+      "contrasena": "4321"
+    }
+  ],
+  "tareas": [
+    {
+      "id": "1",
+      "imagen": "https://picsum.photos/200/300",
+      "titulo": "Comer frutas",
+      "creada_por": "andres",
+      "editada_por": "andres",
+      "estado": "pendiente",
+      "descripcion": "Holiiii"
+    },
+    {
+      "id": "2",
+      "imagen": "https://picsum.photos/300/300",
+      "titulo": "Hacer ejercicio",
+      "creada_por": "gerson",
+      "editada_por": "andres",
+      "estado": "completada",
+      "descripcion": "asdasd"
+    },
+    {
+      "id": "3",
+      "imagen": "https://picsum.photos/400/300",
+      "titulo": "Estudiar React",
+      "creada_por": "sofia",
+      "editada_por": "gerson",
+      "estado": "pendiente",
+      "descripcion": "asdasdas"
+    },
+    {
+      "id": "86d0",
+      "titulo": "asdasd",
+      "descripcion": "asdasd",
+      "estado": "pendiente",
+      "creada_por": "andres",
+      "editada_por": ""
+    }
+  ]
+}
