@@ -1,0 +1,26 @@
+[
+    {
+        "id" : 1,
+        "imagen" : "https://picsum.photos/200/300",
+        "titulo" : "Comer frutas",
+        "creada_por" : "andres",
+        "editada_por" : "",
+        "estado" : "pendiente"
+    },
+    {
+        "id" : 2,
+        "imagen" : "https://picsum.photos/300/300",
+        "titulo" : "Hacer ejercicio",
+        "creada_por" : "gerson",
+        "editada_por" : "",
+        "estado" : "completada"
+    },
+    {
+        "id" : 3,
+        "imagen" : "https://picsum.photos/400/300",
+        "titulo" : "Estudiar React",
+        "creada_por" : "sofia",
+        "editada_por" : "andres",
+        "estado" : "pendiente"
+    }
+]
