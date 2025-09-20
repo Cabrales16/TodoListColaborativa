@@ -22,16 +22,16 @@
   "tareas": [
     {
       "id": "1",
-      "imagen": "https://picsum.photos/200/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Comer frutas",
       "creada_por": "andres",
       "editada_por": "gerson",
-      "estado": "pendiente",
+      "estado": "completada",
       "descripcion": "Consumir al menos 3 porciones de frutas frescas."
     },
     {
       "id": "2",
-      "imagen": "https://picsum.photos/300/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Hacer ejercicio",
       "creada_por": "gerson",
       "editada_por": "andres",
@@ -40,7 +40,7 @@
     },
     {
       "id": "3",
-      "imagen": "https://picsum.photos/400/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Estudiar React",
       "creada_por": "sofia",
       "editada_por": "gerson",
@@ -49,7 +49,7 @@
     },
     {
       "id": "4",
-      "imagen": "https://picsum.photos/250/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Leer un libro",
       "creada_por": "andres",
       "editada_por": "sofia",
@@ -58,7 +58,7 @@
     },
     {
       "id": "5",
-      "imagen": "https://picsum.photos/260/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Cocinar la cena",
       "creada_por": "gerson",
       "editada_por": "andres",
@@ -67,7 +67,7 @@
     },
     {
       "id": "6",
-      "imagen": "https://picsum.photos/270/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Organizar escritorio",
       "creada_por": "sofia",
       "editada_por": "gerson",
@@ -76,7 +76,7 @@
     },
     {
       "id": "7",
-      "imagen": "https://picsum.photos/280/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Pagar facturas",
       "creada_por": "andres",
       "editada_por": "sofia",
@@ -85,7 +85,7 @@
     },
     {
       "id": "8",
-      "imagen": "https://picsum.photos/290/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Hacer la compra",
       "creada_por": "gerson",
       "editada_por": "andres",
@@ -94,7 +94,7 @@
     },
     {
       "id": "9",
-      "imagen": "https://picsum.photos/310/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Llamar a mamá",
       "creada_por": "sofia",
       "editada_por": "andres",
@@ -103,7 +103,7 @@
     },
     {
       "id": "10",
-      "imagen": "https://picsum.photos/320/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Revisar correo",
       "creada_por": "gerson",
       "editada_por": "sofia",
@@ -112,7 +112,7 @@
     },
     {
       "id": "11",
-      "imagen": "https://picsum.photos/330/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Limpiar cocina",
       "creada_por": "andres",
       "editada_por": "gerson",
@@ -121,7 +121,7 @@
     },
     {
       "id": "12",
-      "imagen": "https://picsum.photos/340/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Revisar proyecto",
       "creada_por": "sofia",
       "editada_por": "andres",
@@ -130,7 +130,7 @@
     },
     {
       "id": "13",
-      "imagen": "https://picsum.photos/350/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Sacar la basura",
       "creada_por": "gerson",
       "editada_por": "sofia",
@@ -139,7 +139,7 @@
     },
     {
       "id": "14",
-      "imagen": "https://picsum.photos/360/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Estudiar inglés",
       "creada_por": "andres",
       "editada_por": "gerson",
@@ -148,7 +148,7 @@
     },
     {
       "id": "15",
-      "imagen": "https://picsum.photos/370/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Planificar viaje",
       "creada_por": "sofia",
       "editada_por": "andres",
@@ -157,7 +157,7 @@
     },
     {
       "id": "16",
-      "imagen": "https://picsum.photos/380/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Regar plantas",
       "creada_por": "andres",
       "editada_por": "sofia",
@@ -166,7 +166,7 @@
     },
     {
       "id": "17",
-      "imagen": "https://picsum.photos/390/300",
+      "imagen": "https://picsum.photos/300",
       "titulo": "Actualizar CV",
       "creada_por": "gerson",
       "editada_por": "sofia",
@@ -175,7 +175,7 @@
     },
     {
       "id": "18",
-      "imagen": "https://picsum.photos/400/320",
+      "imagen": "https://picsum.photos/320",
       "titulo": "Meditar",
       "creada_por": "sofia",
       "editada_por": "andres",

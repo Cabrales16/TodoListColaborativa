@@ -112,11 +112,26 @@ export default function Inicio() {
     }
   };
 
+  // ---------- PAGINACIÓN ----------
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; // puedes ajustar a tu gusto
+
+  const totalPages = Math.ceil(tareas?.length / itemsPerPage);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentTareas = filtrados?.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
   
   return (
     <>
       <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8 px-4">
-        <div className="flex flex-col items-center justify-center text-center mt-10 space-y-2 px-4">
+        <div className="flex flex-col items-center justify-center text-center space-y-2 px-4">
           {/* Título principal */}
           <h1 className="text-4xl font-bold mb-4">
             ¡Bienvenido a la lista de tareas colaborativa!
@@ -168,28 +183,95 @@ export default function Inicio() {
           {!buscando && (
             <div className="mt-8 w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {/* Grid que muestra todas las tareas */}
-            {filtrados?.map((tarea) => (
+            {currentTareas?.map((tarea) => (
               <div
                 key={tarea.id}
                 className="p-6 bg-white border rounded-xl shadow-md hover:shadow-xl transition cursor-pointer"
-                onClick={() => abrirModal(tarea)} // abre modal al hacer clic
               >
+
                 {/* Imagen de la tarea si existe */}
                 {tarea.imagen && (
                   <img
                     src={tarea.imagen}
                     alt={tarea.titulo}
                     className="w-full h-40 object-cover rounded-md mb-4"
+                    onClick={() => abrirModal(tarea)}
                   />
                 )}
-                <h3 className="text-lg font-semibold mb-2">{tarea.titulo}</h3>
-                <p className="text-sm text-gray-600">{tarea.estado}</p>
+
+                <h3
+                  className={`text-lg font-semibold mb-2 ${
+                    tarea.estado === "completada" ? "line-through text-gray-500" : ""
+                  }`}
+                  onClick={() => abrirModal(tarea)}
+                >
+                  {tarea.titulo}
+                </h3>
+                <p className="text-sm text-gray-600">{tarea.descripcion}</p>
+                                {/* Checkbox para cambiar estado */}
+                <div className="flex items-center mt-3">
+                  <input
+                    type="checkbox"
+                    checked={tarea.estado === "completada"}
+                    onChange={(e) => {
+                      const nuevoEstado = e.target.checked ? "completada" : "pendiente";
+                      const tareaActualizada = { ...tarea, estado: nuevoEstado };
+                      actualizarTarea(tareaActualizada);
+                    }}
+                    className="mr-2 w-5 h-5 cursor-pointer accent-green-600"
+                  />
+                  <span className="text-sm text-gray-700">
+                    {tarea.estado === "completada" ? "Completada" : "Pendiente"}
+                  </span>
+                </div>
               </div>
             ))}
             </div>
           )}
         </div>
+        
+        {/* PAGINACIÓN */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-8 gap-2">
+            <button
+              className={`px-3 py-1 rounded ${
+                currentPage === 1
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-500 text-white"
+              }`}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Volver
+            </button>
 
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index}
+                className={`px-3 py-1 rounded ${
+                  currentPage === index + 1
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-200 hover:bg-green-500 hover:text-white"
+                }`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              className={`px-3 py-1 rounded ${
+                currentPage === totalPages
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-500 text-white"
+              }`}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Siguiente
+            </button>
+          </div>
+        )}
         {/* Modal de detalles/edición de tarea */}
         <TareaModal
           tarea={selectedTarea}
