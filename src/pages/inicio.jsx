@@ -176,7 +176,7 @@ export default function Inicio() {
 
           {!loading && !error && filtrados?.length === 0 && (
             <p className="mt-6 text-center text-gray-600">
-              Sin resultados para tu búsqueda.
+              Sin resultados para tu búsqueda
             </p>
           )}
 
