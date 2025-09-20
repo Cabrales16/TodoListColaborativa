@@ -4,6 +4,9 @@ import TareaModal from "../components/TareaModal";
 import TareaCrear from "../components/TareaCrear";
 import BarraBusqueda from "../components/SearchTarea"
 import { CircularProgress } from "@mui/material";
+import { PlusIcon } from '@heroicons/react/24/solid'
+import { ArrowLeftIcon } from '@heroicons/react/24/solid'
+import { ArrowRightIcon } from '@heroicons/react/24/solid'
 
 export default function Inicio() {
   // Estado para guardar las tareas cargadas desde la API/json-server
@@ -149,8 +152,9 @@ export default function Inicio() {
 
           <button
             onClick={() => setModoCrear(true)}
-            className="bg-green-600 text-white px-8 py-2 rounded-lg hover:bg-green-700"
+            className="flex items-center gap-2 bg-green-600 text-white px-8 py-2 rounded-lg hover:bg-green-700"
           >
+            <PlusIcon className="h-5 w-5" />
             <strong>Crear</strong>
           </button>
         </div>
@@ -234,7 +238,7 @@ export default function Inicio() {
         {totalPages > 1 && (
           <div className="flex justify-center items-center mt-8 gap-2">
             <button
-              className={`px-3 py-1 rounded ${
+              className={`flex items-center gap-2 px-3 py-1 rounded ${
                 currentPage === 1
                   ? "bg-gray-300 cursor-not-allowed"
                   : "bg-green-500 text-white"
@@ -242,6 +246,7 @@ export default function Inicio() {
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
+              <ArrowLeftIcon className="h-5 w-5" />
               Volver
             </button>
 
@@ -260,7 +265,7 @@ export default function Inicio() {
             ))}
 
             <button
-              className={`px-3 py-1 rounded ${
+              className={`flex items-center gap-2 px-3 py-1 rounded ${
                 currentPage === totalPages
                   ? "bg-gray-300 cursor-not-allowed"
                   : "bg-green-500 text-white"
@@ -269,6 +274,7 @@ export default function Inicio() {
               disabled={currentPage === totalPages}
             >
               Siguiente
+              <ArrowRightIcon className="h-5 w-5" />
             </button>
           </div>
         )}

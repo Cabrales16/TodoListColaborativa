@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { BookmarkIcon } from '@heroicons/react/24/solid'
+import { XMarkIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/solid'
 
 export default function TareaCrear({ initialData = {}, onSubmit, onCancel }) {
   // initialData trae datos iniciales de la tarea (si se edita una existente)
@@ -58,16 +60,18 @@ export default function TareaCrear({ initialData = {}, onSubmit, onCancel }) {
       <div className="flex gap-2">
         <button
           type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
         >
+          <BookmarkIcon className="h-5 w-5" />
           Guardar
         </button>
 
         <button
           type="button"
           onClick={onCancel}
-          className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
         >
+          <XMarkIcon className="h-5 w-5" />
           Cancelar
         </button>
       </div>

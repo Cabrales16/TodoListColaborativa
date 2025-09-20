@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import TareaCrear from "./TareaCrear";
+import { PencilIcon } from '@heroicons/react/24/solid'
+import { TrashIcon } from '@heroicons/react/24/solid'
 
 ReactModal.setAppElement("#root");
 
@@ -67,15 +69,16 @@ export default function TareaModal({ tarea, isOpen, onClose, onUpdate, onDelete 
           <div className="mt-4 flex gap-2">
             <button
               onClick={() => setModoEdicion(true)}
-              className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
-              Editar
+              <PencilIcon className="h-5 w-5" />
             </button>
+
             <button
               onClick={handleDelete}
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+              className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
             >
-              Eliminar
+               <TrashIcon className="h-5 w-5" />
             </button>
           </div>
         </>
