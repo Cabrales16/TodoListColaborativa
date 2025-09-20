@@ -64,16 +64,6 @@ export default function Login() {
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
-          {/* Opciones extra: Recordarme y enlace de recuperar contraseña */}
-          <div className="flex items-center justify-between text-sm">
-            <label className="flex items-center">
-              <input type="checkbox" className="mr-2" /> Recordarme
-            </label>
-            <a href="#" className="text-blue-500 hover:underline">
-              ¿Olvidaste tu contraseña?
-            </a>
-          </div>
-
           {/* Botón de enviar */}
           <button
             type="submit"

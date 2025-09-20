@@ -25,9 +25,9 @@
       "imagen": "https://picsum.photos/200/300",
       "titulo": "Comer frutas",
       "creada_por": "andres",
-      "editada_por": "andres",
+      "editada_por": "gerson",
       "estado": "pendiente",
-      "descripcion": "Holiiii"
+      "descripcion": "Consumir al menos 3 porciones de frutas frescas."
     },
     {
       "id": "2",
@@ -36,7 +36,7 @@
       "creada_por": "gerson",
       "editada_por": "andres",
       "estado": "completada",
-      "descripcion": "asdasd"
+      "descripcion": "30 minutos de cardio o pesas en casa."
     },
     {
       "id": "3",
@@ -45,15 +45,142 @@
       "creada_por": "sofia",
       "editada_por": "gerson",
       "estado": "pendiente",
-      "descripcion": "asdasdas"
+      "descripcion": "Avanzar en hooks y useEffect."
     },
     {
-      "id": "86d0",
-      "titulo": "asdasd",
-      "descripcion": "asdasd",
-      "estado": "pendiente",
+      "id": "4",
+      "imagen": "https://picsum.photos/250/300",
+      "titulo": "Leer un libro",
       "creada_por": "andres",
-      "editada_por": ""
+      "editada_por": "sofia",
+      "estado": "pendiente",
+      "descripcion": "Avanzar al menos 20 páginas del libro pendiente."
+    },
+    {
+      "id": "5",
+      "imagen": "https://picsum.photos/260/300",
+      "titulo": "Cocinar la cena",
+      "creada_por": "gerson",
+      "editada_por": "andres",
+      "estado": "completada",
+      "descripcion": "Preparar una receta saludable para la familia."
+    },
+    {
+      "id": "6",
+      "imagen": "https://picsum.photos/270/300",
+      "titulo": "Organizar escritorio",
+      "creada_por": "sofia",
+      "editada_por": "gerson",
+      "estado": "pendiente",
+      "descripcion": "Ordenar papeles, cables y limpiar la superficie."
+    },
+    {
+      "id": "7",
+      "imagen": "https://picsum.photos/280/300",
+      "titulo": "Pagar facturas",
+      "creada_por": "andres",
+      "editada_por": "sofia",
+      "estado": "pendiente",
+      "descripcion": "Pagar servicios de luz, agua e internet antes del viernes."
+    },
+    {
+      "id": "8",
+      "imagen": "https://picsum.photos/290/300",
+      "titulo": "Hacer la compra",
+      "creada_por": "gerson",
+      "editada_por": "andres",
+      "estado": "completada",
+      "descripcion": "Comprar frutas, verduras y productos de limpieza."
+    },
+    {
+      "id": "9",
+      "imagen": "https://picsum.photos/310/300",
+      "titulo": "Llamar a mamá",
+      "creada_por": "sofia",
+      "editada_por": "andres",
+      "estado": "pendiente",
+      "descripcion": "Hacer una llamada de al menos 20 minutos."
+    },
+    {
+      "id": "10",
+      "imagen": "https://picsum.photos/320/300",
+      "titulo": "Revisar correo",
+      "creada_por": "gerson",
+      "editada_por": "sofia",
+      "estado": "completada",
+      "descripcion": "Responder mensajes importantes del trabajo."
+    },
+    {
+      "id": "11",
+      "imagen": "https://picsum.photos/330/300",
+      "titulo": "Limpiar cocina",
+      "creada_por": "andres",
+      "editada_por": "gerson",
+      "estado": "pendiente",
+      "descripcion": "Lavar platos, limpiar estufa y barrer el piso."
+    },
+    {
+      "id": "12",
+      "imagen": "https://picsum.photos/340/300",
+      "titulo": "Revisar proyecto",
+      "creada_por": "sofia",
+      "editada_por": "andres",
+      "estado": "pendiente",
+      "descripcion": "Avanzar en la documentación del sistema médico."
+    },
+    {
+      "id": "13",
+      "imagen": "https://picsum.photos/350/300",
+      "titulo": "Sacar la basura",
+      "creada_por": "gerson",
+      "editada_por": "sofia",
+      "estado": "completada",
+      "descripcion": "Llevar las bolsas de basura al contenedor."
+    },
+    {
+      "id": "14",
+      "imagen": "https://picsum.photos/360/300",
+      "titulo": "Estudiar inglés",
+      "creada_por": "andres",
+      "editada_por": "gerson",
+      "estado": "pendiente",
+      "descripcion": "Hacer ejercicios de gramática y vocabulario."
+    },
+    {
+      "id": "15",
+      "imagen": "https://picsum.photos/370/300",
+      "titulo": "Planificar viaje",
+      "creada_por": "sofia",
+      "editada_por": "andres",
+      "estado": "pendiente",
+      "descripcion": "Buscar hoteles y transporte para vacaciones."
+    },
+    {
+      "id": "16",
+      "imagen": "https://picsum.photos/380/300",
+      "titulo": "Regar plantas",
+      "creada_por": "andres",
+      "editada_por": "sofia",
+      "estado": "completada",
+      "descripcion": "Regar las plantas de la sala y el balcón."
+    },
+    {
+      "id": "17",
+      "imagen": "https://picsum.photos/390/300",
+      "titulo": "Actualizar CV",
+      "creada_por": "gerson",
+      "editada_por": "sofia",
+      "estado": "pendiente",
+      "descripcion": "Agregar proyectos recientes al currículum."
+    },
+    {
+      "id": "18",
+      "imagen": "https://picsum.photos/400/320",
+      "titulo": "Meditar",
+      "creada_por": "sofia",
+      "editada_por": "andres",
+      "estado": "pendiente",
+      "descripcion": "Dedicar 15 minutos a meditación guiada."
     }
   ]
 }

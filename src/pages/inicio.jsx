@@ -1,11 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import api from "../service/api"; //traemos el api
 import TareaModal from "../components/TareaModal";
 import TareaCrear from "../components/TareaCrear";
+import BarraBusqueda from "../components/SearchTarea"
+import { CircularProgress } from "@mui/material";
 
 export default function Inicio() {
   // Estado para guardar las tareas cargadas desde la API/json-server
   const [tareas, setTareas] = useState([]);
+  const [filtrados, setFiltrados] = useState([]); // Estado para tareas filtradas
+  const [loading, setLoading] = useState(true); // Estado para manejar la carga de datos
+  const [buscando, setBuscando] = useState(""); // Estado para manejar el texto de búsqueda
+  const [error, setError] = useState(null); // Estado para manejar errores
+
+  const obtenerTareas = useCallback(async () => {
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { response } = await api.get("/tareas");
+      setTareas(response);
+      setFiltrados(response);
+    }
+    catch (error) {
+      console.error("Error al obtener las tareas:", error);
+    }
+    
+    finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    obtenerTareas();
+  }, [obtenerTareas]);
+  
+  const filtrarTareas = useCallback(
+    (query) => {
+      setBuscando(true)
+
+      setTimeout(() => {
+        if (query.trim() === '') {
+          setFiltrados(tareas)
+        } else {
+          const q = query.trim().toLowerCase()
+          const resultados = tareas.filter((t) =>
+            [t.titulo, t.creada_por, t.editada_por, t.estado, t.descripcion].some(
+              (campo) => String(campo).toLowerCase().includes(q)
+            )
+          )
+          setFiltrados(resultados)
+        }
+        setBuscando(false)
+      }, 1000) // Simula un retardo de búsqueda
+    },
+    [tareas]
+  )
 
   // Estado para manejar cuál tarea está seleccionada
   const [selectedTarea, setSelectedTarea] = useState(null);
@@ -61,76 +112,115 @@ export default function Inicio() {
     }
   };
 
+  
   return (
-    <div className="flex flex-col items-center pt-12 min-h-screen bg-gray-100">
-      {/* Título principal */}
-      <h1 className="text-4xl font-bold mb-4">
-        ¡Bienvenido a la lista de tareas colaborativa!
-      </h1>
-      <p className="text-lg text-gray-700">
-        Organiza y comparte tus tareas con facilidad.
-      </p>
-
-      {/* Botón para abrir modal de creación */}
-      <button
-        onClick={() => setModoCrear(true)}
-        className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-      >
-        + Crear Tarea
-      </button>
-
-      {/* Grid que muestra todas las tareas */}
-      <div className="mt-8 w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {tareas.map((tarea) => (
-          <div
-            key={tarea.id}
-            className="p-6 bg-white border rounded-xl shadow-md hover:shadow-xl transition cursor-pointer"
-            onClick={() => abrirModal(tarea)} // abre modal al hacer clic
-          >
-            {/* Imagen de la tarea si existe */}
-            {tarea.imagen && (
-              <img
-                src={tarea.imagen}
-                alt={tarea.titulo}
-                className="w-full h-40 object-cover rounded-md mb-4"
-              />
-            )}
-            <h3 className="text-lg font-semibold mb-2">{tarea.titulo}</h3>
-            <p className="text-sm text-gray-600">{tarea.estado}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Modal de detalles/edición de tarea */}
-      <TareaModal
-        tarea={selectedTarea}
-        isOpen={!!selectedTarea} // true si hay tarea seleccionada
-        onClose={cerrarModal}
-        onUpdate={actualizarTarea}
-        onDelete={eliminarTarea}
-      />
-
-      {/* Modal de creación de nueva tarea */}
-      {modoCrear && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative">
-            {/* Botón para cerrar modal de creación */}
-            <button
-              onClick={() => setModoCrear(false)}
-              className="absolute top-2 right-2 text-gray-600 hover:text-black"
-            >
-              ✕
-            </button>
-            <h2 className="text-xl font-bold mb-4">Crear nueva tarea</h2>
-
-            {/* Formulario de creación TareaCrear */}
-            <TareaCrear
-              onSubmit={crearTarea}
-              onCancel={() => setModoCrear(false)}
-            />
-          </div>
+    <>
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8 px-4">
+        <div className="flex flex-col items-center justify-center text-center mt-10 space-y-2 px-4">
+          {/* Título principal */}
+          <h1 className="text-4xl font-bold mb-4">
+            ¡Bienvenido a la lista de tareas colaborativa!
+          </h1>
+          <p className="text-lg text-gray-700">
+            Organiza y comparte tus tareas con facilidad.
+          </p>
         </div>
-      )}
-    </div>
+
+        {/* Barra de búsqueda y botón de crear tarea*/}
+        <div className="w-full max-w-5xl flex justify-between items-center mt-6 space-x-4">
+          <div className="w-full">
+            <BarraBusqueda onSearch={filtrarTareas} />
+          </div>
+
+          <button
+            onClick={() => setModoCrear(true)}
+            className="bg-green-600 text-white px-8 py-2 rounded-lg hover:bg-green-700"
+          >
+            <strong>Crear</strong>
+          </button>
+        </div>
+
+        <div>
+          {loading && <p className="mt-6 text-center flex">Cargando usuarios…</p>}
+
+          {error && !loading && (
+            <div className="mt-6 mx-auto max-w-md rounded bg-red-50 border border-red-200 p-3 text-red-700">
+              {error} — verifica que el API esté arriba en{' '}
+              <button className="ml-2 underline" onClick={obtenerTareas}>
+                Reintentar
+              </button>
+            </div>
+          )}
+
+          {buscando && !loading && !error && (
+            <div className="mt-6 text-center flex items-center justify-center">
+              <CircularProgress size={32} />
+              <span className="ml-2 text-gray-600">Buscando…</span>
+            </div>
+          )}
+
+          {!loading && !error && filtrados?.length === 0 && (
+            <p className="mt-6 text-center text-gray-600">
+              Sin resultados para tu búsqueda.
+            </p>
+          )}
+
+          {!buscando && (
+            <div className="mt-8 w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {/* Grid que muestra todas las tareas */}
+            {filtrados?.map((tarea) => (
+              <div
+                key={tarea.id}
+                className="p-6 bg-white border rounded-xl shadow-md hover:shadow-xl transition cursor-pointer"
+                onClick={() => abrirModal(tarea)} // abre modal al hacer clic
+              >
+                {/* Imagen de la tarea si existe */}
+                {tarea.imagen && (
+                  <img
+                    src={tarea.imagen}
+                    alt={tarea.titulo}
+                    className="w-full h-40 object-cover rounded-md mb-4"
+                  />
+                )}
+                <h3 className="text-lg font-semibold mb-2">{tarea.titulo}</h3>
+                <p className="text-sm text-gray-600">{tarea.estado}</p>
+              </div>
+            ))}
+            </div>
+          )}
+        </div>
+
+        {/* Modal de detalles/edición de tarea */}
+        <TareaModal
+          tarea={selectedTarea}
+          isOpen={!!selectedTarea} // true si hay tarea seleccionada
+          onClose={cerrarModal}
+          onUpdate={actualizarTarea}
+          onDelete={eliminarTarea}
+        />
+
+        {/* Modal de creación de nueva tarea */}
+        {modoCrear && (
+          <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative">
+              {/* Botón para cerrar modal de creación */}
+              <button
+                onClick={() => setModoCrear(false)}
+                className="absolute top-2 right-2 text-gray-600 hover:text-black"
+              >
+                ✕
+              </button>
+              <h2 className="text-xl font-bold mb-4">Crear nueva tarea</h2>
+
+              {/* Formulario de creación TareaCrear */}
+              <TareaCrear
+                onSubmit={crearTarea}
+                onCancel={() => setModoCrear(false)}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
