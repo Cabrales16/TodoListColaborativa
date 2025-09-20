@@ -8,6 +8,10 @@ import { PlusIcon } from '@heroicons/react/24/solid'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "react-toastify";
+import { PowerIcon } from '@heroicons/react/24/outline'; 
+import { nav } from "motion/react-client";
+import { useNavigate } from "react-router-dom"; // Hook para redirigir entre páginas
 
 export default function Inicio() {
   // Estado para guardar las tareas cargadas desde la API/json-server
@@ -17,6 +21,14 @@ export default function Inicio() {
   const [buscando, setBuscando] = useState(""); // Estado para manejar el texto de búsqueda
   const [error, setError] = useState(null); // Estado para manejar errores
 
+  const navigate = useNavigate(); // Para navegar a otra ruta si el login es exitoso
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem("admins");
+    navigate("/");
+    toast.info("Has cerrado sesión");
+  }
   const obtenerTareas = useCallback(async () => {
 
     setLoading(true);
@@ -55,6 +67,7 @@ export default function Inicio() {
             )
           )
           setFiltrados(resultados)
+          toast.info('Las tareas han sido filtradas')
         }
         setBuscando(false)
       }, 1000) // Simula un retardo de búsqueda
@@ -87,8 +100,10 @@ export default function Inicio() {
       const response = await api.post("/tareas", nuevaTarea);
       setTareas((prev) => [...prev, response.data]); // agrega la nueva tarea al estado
       setModoCrear(false); // cierra el modal de creación
+      toast.success("Tarea creada con éxito");
     } catch (error) {
       console.error("Error creando tarea:", error);
+      toast.error("Error creando la tarea");
     }
   };
 
@@ -100,8 +115,10 @@ export default function Inicio() {
       setTareas((prev) =>
         prev.map((t) => (t.id === tareaEditada.id ? tareaEditada : t))
       );
+      toast.success("Tarea actualizada con éxito");
     } catch (error) {
       console.error("Error actualizando tarea:", error);
+      toast.error("Error actualizando la tarea");
     }
   };
 
@@ -111,8 +128,10 @@ export default function Inicio() {
       await api.delete(`/tareas/${tareaEliminada.id}`);
       // elimina la tarea del estado local
       setTareas((prev) => prev.filter((t) => t.id !== tareaEliminada.id));
+      toast.success("Tarea eliminada con éxito");
     } catch (error) {
       console.error("Error eliminando tarea:", error);
+      toast.error("Error eliminando la tarea");
     }
   };
 
@@ -135,6 +154,16 @@ export default function Inicio() {
   return (
     <>
       <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8 px-4">
+        {/* Botón de cerrar sesión */}
+        <div className="w-full flex justify-end mb-4">
+          <button
+            onClick={handleLogout} 
+            className="mt-4 text-blue-600 hover:underline"
+          >
+            <PowerIcon className="h-5 w-5 inline-block mr-1" />
+            Cerrar sesión
+          </button>
+        </div>
         <div className="flex flex-col items-center justify-center text-center space-y-2 px-4">
           {/* Título principal */}
           <h1 className="text-4xl font-bold mb-4">
@@ -192,6 +221,7 @@ export default function Inicio() {
               <div
                 key={tarea.id}
                 className="p-6 bg-white border rounded-xl shadow-md hover:shadow-xl transition cursor-pointer"
+                
               >
 
                 {/* Imagen de la tarea si existe */}

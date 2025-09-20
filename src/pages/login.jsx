@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../service/api"; // Cliente de conexión con json-server (para consultas a la API)
 import { useNavigate } from "react-router-dom"; // Hook para redirigir entre páginas
+import { toast } from "react-toastify"; // Para mostrar notificaciones (éxito, error, etc.)
 
 export default function Login() {
   // Estados locales para manejar los valores de los inputs y mensajes de error
@@ -16,7 +17,7 @@ export default function Login() {
     try {
       // Petición GET al backend (json-server) para buscar un admin con ese correo y contraseña
       const response = await api.get(
-        `/admins?correo=${correo}&contrasena=${contrasena}` //aqui traemos los datos de los admins especificamente
+      `/admins?correo=${correo}&contrasena=${contrasena}` //aqui traemos los datos de los admins especificamente
       );
 
       // Si encuentra al menos un usuario, significa que las credenciales son válidas
@@ -24,12 +25,25 @@ export default function Login() {
         // Guardamos el usuario autenticado en localStorage (para mantener sesión)
         localStorage.setItem("admins", JSON.stringify(response.data[0]));
 
+        if (correo === "" || contrasena === "") {
+        setError("Por favor, complete todos los campos");
+        toast.error("Por favor, complete todos los campos");
+        
+      } else {
         // Redirige a la página de inicio
         navigate("/inicio");
+        toast.success("Login exitoso"); // Muestra notificación de éxito
+      }
+
       } else {
         // Si no encuentra coincidencias, muestra error de credenciales
         setError("Credenciales incorrectas");
-      }
+        toast.error("Credenciales incorrectas"); // Muestra notificación de error
+        
+        // Si no encuentra datos
+        
+        
+      } 
     } catch {
       // Si hay un fallo en la petición o en el servidor
       setError("Error en el login");

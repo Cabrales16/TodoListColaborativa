@@ -43,7 +43,7 @@
       "imagen": "https://picsum.photos/300",
       "titulo": "Estudiar React",
       "creada_por": "sofia",
-      "editada_por": "gerson",
+      "editada_por": "andres",
       "estado": "completada",
       "descripcion": "Avanzar en hooks y useEffect."
     },
@@ -53,7 +53,7 @@
       "titulo": "Leer un libro",
       "creada_por": "andres",
       "editada_por": "sofia",
-      "estado": "pendiente",
+      "estado": "completada",
       "descripcion": "Avanzar al menos 20 páginas del libro pendiente."
     },
     {
@@ -80,7 +80,7 @@
       "titulo": "Pagar facturas",
       "creada_por": "andres",
       "editada_por": "sofia",
-      "estado": "pendiente",
+      "estado": "completada",
       "descripcion": "Pagar servicios de luz, agua e internet antes del viernes."
     },
     {

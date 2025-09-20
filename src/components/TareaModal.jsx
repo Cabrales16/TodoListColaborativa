@@ -4,8 +4,6 @@ import TareaCrear from "./TareaCrear";
 import { PencilIcon } from '@heroicons/react/24/solid'
 import { TrashIcon } from '@heroicons/react/24/solid'
 
-ReactModal.setAppElement("#root");
-
 export default function TareaModal({ tarea, isOpen, onClose, onUpdate, onDelete }) {
   const [modoEdicion, setModoEdicion] = useState(false);
   const user = JSON.parse(localStorage.getItem("admins")); // Usuario autenticado
