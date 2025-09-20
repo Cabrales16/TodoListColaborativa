@@ -7,6 +7,7 @@ import { CircularProgress } from "@mui/material";
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Inicio() {
   // Estado para guardar las tareas cargadas desde la API/json-server
@@ -152,7 +153,7 @@ export default function Inicio() {
 
           <button
             onClick={() => setModoCrear(true)}
-            className="flex items-center gap-2 bg-green-600 text-white px-8 py-2 rounded-lg hover:bg-green-700"
+            className="flex items-center gap-2 bg-blue-600 text-white px-8 py-2 rounded-lg hover:bg-blue-700"
           >
             <PlusIcon className="h-5 w-5" />
             <strong>Crear</strong>
@@ -160,7 +161,7 @@ export default function Inicio() {
         </div>
 
         <div>
-          {loading && <p className="mt-6 text-center flex">Cargando usuarios…</p>}
+          {loading && <p className="mt-6 text-center flex">Cargando tareas...</p>}
 
           {error && !loading && (
             <div className="mt-6 mx-auto max-w-md rounded bg-red-50 border border-red-200 p-3 text-red-700">
@@ -241,7 +242,7 @@ export default function Inicio() {
               className={`flex items-center gap-2 px-3 py-1 rounded ${
                 currentPage === 1
                   ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-green-500 text-white"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
@@ -255,8 +256,8 @@ export default function Inicio() {
                 key={index}
                 className={`px-3 py-1 rounded ${
                   currentPage === index + 1
-                    ? "bg-green-600 text-white"
-                    : "bg-gray-200 hover:bg-green-500 hover:text-white"
+                    ? "bg-blue-700 text-white"
+                    : "bg-gray-200 hover:bg-blue-600 hover:text-white"
                 }`}
                 onClick={() => handlePageChange(index + 1)}
               >
@@ -268,7 +269,7 @@ export default function Inicio() {
               className={`flex items-center gap-2 px-3 py-1 rounded ${
                 currentPage === totalPages
                   ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-green-500 text-white"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
@@ -278,36 +279,69 @@ export default function Inicio() {
             </button>
           </div>
         )}
+
         {/* Modal de detalles/edición de tarea */}
-        <TareaModal
-          tarea={selectedTarea}
-          isOpen={!!selectedTarea} // true si hay tarea seleccionada
-          onClose={cerrarModal}
-          onUpdate={actualizarTarea}
-          onDelete={eliminarTarea}
-        />
+        <AnimatePresence>
+          {selectedTarea && (
+            <motion.div
+              className="fixed inset-0 flex justify-center items-center bg-black/40 z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <TareaModal
+                  tarea={selectedTarea}
+                  isOpen={!!selectedTarea}
+                  onClose={cerrarModal}
+                  onUpdate={actualizarTarea}
+                  onDelete={eliminarTarea}
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Modal de creación de nueva tarea */}
-        {modoCrear && (
-          <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative">
-              {/* Botón para cerrar modal de creación */}
-              <button
-                onClick={() => setModoCrear(false)}
-                className="absolute top-2 right-2 text-gray-600 hover:text-black"
+        <AnimatePresence>
+          {modoCrear && (
+            <motion.div
+              className="fixed inset-0 flex justify-center items-center bg-black/40 z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative"
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 50, opacity: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                ✕
-              </button>
-              <h2 className="text-xl font-bold mb-4">Crear nueva tarea</h2>
-
-              {/* Formulario de creación TareaCrear */}
-              <TareaCrear
-                onSubmit={crearTarea}
-                onCancel={() => setModoCrear(false)}
-              />
-            </div>
-          </div>
-        )}
+                {/* Botón para cerrar modal de creación */}
+                <button
+                  onClick={() => setModoCrear(false)}
+                  className="absolute top-2 right-2 text-gray-600 hover:text-black"
+                >
+                  ✕
+                </button>
+                <h2 className="text-xl font-bold mb-4">Crear nueva tarea</h2>
+          
+                {/* Formulario de creación TareaCrear */}
+                <TareaCrear
+                  onSubmit={crearTarea}
+                  onCancel={() => setModoCrear(false)}
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
