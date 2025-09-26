@@ -1,6 +1,6 @@
 module.exports = {
   presets: [
-    "@babel/preset-env",   // Para transformar JS moderno a JS que entiende Node
-    "@babel/preset-react", // Para que Jest entienda JSX
+    '@babel/preset-env',
+    '@babel/preset-react'
   ],
 };

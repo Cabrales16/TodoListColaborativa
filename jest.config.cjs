@@ -8,5 +8,8 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
     '!src/main.jsx'
-  ]
+  ],
+  transform: {
+    '^.+\\.[jt]sx?$': 'babel-jest',
+  },
 };

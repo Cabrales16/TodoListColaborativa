@@ -1,10 +1,12 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import Inicio from "../pages/inicio";
+import { render, screen, fireEvent, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
+import api from "../service/api.jsx";
 import { MemoryRouter } from "react-router-dom";
-import api from "../service/api.jsx"; // 🔹 Importamos el mock
+import Inicio from "../pages/inicio.jsx";
+import { describe, beforeEach, test, expect } from "@jest/globals";
 
-// 🔹 Mockeamos el módulo api
+// Mock del servicio API
+/* global jest */
 jest.mock("../service/api.jsx", () => ({
   __esModule: true,
   default: {
@@ -13,17 +15,36 @@ jest.mock("../service/api.jsx", () => ({
 }));
 
 describe("Componente barra de búsqueda", () => {
+
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(console, "error").mockImplementation(() => {}); // evita logs de error en tests
   });
 
   test("Renderiza las tareas filtradas según la búsqueda", async () => {
-    // 🔹 Simulamos que la API devuelve tareas
-    api.get.mockResolvedValueOnce({
-      data: [
-        { id: 1, titulo: "Comer frutas", descripcion: "Plátano y manzana", estado: "pendiente" },
-        { id: 2, titulo: "Hacer ejercicio", descripcion: "Correr 30 min", estado: "hecho" },
-      ],
+    const mockTareas = [
+      { 
+        id: 1, 
+        titulo: "Comer frutas", 
+        descripcion: "Plátano y manzana", 
+        estado: "completada", 
+        creada_por: "usuario", 
+        editada_por: "usuario" 
+      },
+      { 
+        id: 2, 
+        titulo: "Hacer ejercicio", 
+        descripcion: "Correr 30 min", 
+        estado: "pendiente", 
+        creada_por: "usuario", 
+        editada_por: "usuario" 
+      },
+    ];
+
+    // Mock de respuesta de la API
+    api.get.mockResolvedValue({
+      response: mockTareas,
+      data: mockTareas
     });
 
     render(
@@ -32,17 +53,26 @@ describe("Componente barra de búsqueda", () => {
       </MemoryRouter>
     );
 
-    // 🔹 Esperamos a que aparezcan las tareas de la API
+    // Espera a que desaparezca el indicador de carga
+    await waitForElementToBeRemoved(() => screen.getByText(/Cargando tareas.../i));
+
+    // Verifica que ambas tareas estén inicialmente
     expect(await screen.findByText("Comer frutas")).toBeInTheDocument();
     expect(await screen.findByText("Hacer ejercicio")).toBeInTheDocument();
 
-    // 🔹 Filtramos por "Comer frutas"
-    fireEvent.change(
-      screen.getByPlaceholderText("Buscar titulo, descripción o estado..."),
-      { target: { value: "Comer frutas" } }
-    );
+    // Input de búsqueda
+    const searchInput = screen.getByPlaceholderText("Buscar titulo, descripción o estado...");
 
-    // 🔹 Verificamos que solo aparece la tarea filtrada
-    expect(await screen.findByText("Comer frutas")).toBeInTheDocument();
+    // Simula búsqueda
+    fireEvent.change(searchInput, { target: { value: "frutas" } });
+
+    // Espera indicador de búsqueda
+    await waitFor(() => {
+      expect(screen.getByText(/Buscando…/i)).toBeInTheDocument();
+    });
+
+    // Espera que desaparezca el indicador de búsqueda
+    await waitForElementToBeRemoved(() => screen.getByText(/Buscando…/i), { timeout: 2000 });
   });
+
 });
