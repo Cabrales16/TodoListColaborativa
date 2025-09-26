@@ -9,7 +9,7 @@
     "server-admin": "json-server db.json --port 3001",
     "lint": "eslint . --ext .js",
     "preview": "vite preview",
-    "start": "node server.js",
+    "start": "vite preview",
     "test": "cross-env jest --no-cache",
     "test:watch": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest --watch --no-cache",
     "deploy": "gh-pages -d dist"
@@ -20,7 +20,7 @@
     "@heroicons/react": "^2.2.0",
     "@mui/material": "^7.3.2",
     "axios": "^1.12.2",
-    "motion": "^12.23.16",
+    "framer-motion": "^12.23.22",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-modal": "^3.16.3",
