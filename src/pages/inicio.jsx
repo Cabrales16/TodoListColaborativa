@@ -13,8 +13,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { PowerIcon } from '@heroicons/react/24/outline'; 
 
-// eslint-disable-next-line no-unused-vars
-import { nav } from "motion/react-client";
 import { useNavigate } from "react-router-dom"; // Hook para redirigir entre páginas
 
 export default function Inicio() {

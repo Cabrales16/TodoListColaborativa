@@ -1,14 +1,22 @@
-import jsonServer from "json-server";
+import express from 'express';
+import path from 'path';
+import jsonServer from 'json-server';
+import { fileURLToPath } from 'url';
 
-const server = jsonServer.create();
-const router = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+const app = express();
 /* global process */
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
-server.use(middlewares);
-server.use(router);
-server.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`);
+// Servir frontend
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Servir JSON Server en /api
+const apiRouter = jsonServer.router('db.json');
+app.use('/api', apiRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
