@@ -7,10 +7,12 @@ import { CircularProgress } from "@mui/material";
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 import { PowerIcon } from '@heroicons/react/24/outline'; 
-import { nav } from "motion/react-client";
+
 import { useNavigate } from "react-router-dom"; // Hook para redirigir entre páginas
 
 export default function Inicio() {
@@ -83,10 +85,18 @@ export default function Inicio() {
 
   // useEffect: carga las tareas al montar el componente desde la API
   useEffect(() => {
-    api.get("/tareas")
-      .then((response) => setTareas(response.data)) // guarda las tareas en el estado
-      .catch((error) => console.error("Error fetching tareas:", error));
-  }, []);
+    const fetchTareas = async () => {
+      try {
+        const response = await api.get("/tareas");
+        setTareas(response.data); // guarda las tareas en el estado
+      } catch (error) {
+        console.error("Error fetching tareas:", error);
+      }
+    };
+
+  fetchTareas();
+}, []);
+
 
   // Abre el modal de detalles asignando la tarea seleccionada
   const abrirModal = (tarea) => setSelectedTarea(tarea);
